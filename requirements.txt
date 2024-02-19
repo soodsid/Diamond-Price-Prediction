@@ -1,2 +1,7 @@
 setuptools
--e .
+pandas
+scikit-learn
+numpy
+plotly
+ipykernel
+
