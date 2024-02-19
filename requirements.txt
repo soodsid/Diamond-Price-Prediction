@@ -2,6 +2,7 @@ setuptools
 pandas
 scikit-learn
 numpy
-plotly
+seaborn
+matplotlib
 ipykernel
 
