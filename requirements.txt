@@ -6,4 +6,5 @@ seaborn
 matplotlib
 ipykernel
 loguru
+dotenv
 -e .
