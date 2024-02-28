@@ -1,26 +1,11 @@
-"""def run():
-    from loguru import logger
-    a=logger.add('log.log', backtrace=False,  diagnose=False, format="\n\n\n{time: YYYY-MM-DD HH:mm:ss} | {level} | {module}.{function}.{line} — {message}", level='INFO', colorize=False)
-    return 1
-
-if __name__=='__main__':
-    run()
-"""
-
 from loguru import logger
-
+import os
+from dotenv import find_dotenv
 logger.remove()
-logger.add('logs/log.log', backtrace=False,  diagnose=False, format="\n\n\n{time: YYYY-MM-DD HH:mm:ss} | {level} | {module}.{function}.{line} — {message}", level='INFO', colorize=False)
-logger.info('logging started')
+logger.add(os.path.join(os.path.dirname(find_dotenv()),'notebooks','log','log.log'), backtrace=True,  diagnose=True, format="-"*200+"\n{time: YYYY-MM-DD HH:mm:ss} | {level} | {module}.{function}.{line} — {message}", level='INFO', colorize=False)
 
+#logger.add(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'log','log.log'), backtrace=True,  diagnose=True, format="\n\n\n{time: YYYY-MM-DD HH:mm:ss} | {level} | {module}.{function}.{line} — {message}", level='INFO', colorize=False)
 
-"""
-class log():
-    def __init__(self):
-        logger.remove()
-        logger.add('logs/log.log', backtrace=False,  diagnose=False, format="\n\n\n{time: YYYY-MM-DD HH:mm:ss} | {level} | {module}.{function}.{line} — {message}", level='INFO', colorize=False)
-        logger.info('logging started')
-        self.ger=logger"""
 
 
 
