@@ -41,5 +41,7 @@ class DataIngestion:
 
             logger.success("successfull data ingestion")
 
+            return (self.ingestion_paths.traindata_path, self.ingestion_paths.testdata_path)
+
         except Exception as e:
             logger.exception(e)
