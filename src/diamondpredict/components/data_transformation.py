@@ -1,5 +1,4 @@
 import os
-import sys
 import pandas as pd
 import numpy as np
 from dataclasses import dataclass
@@ -11,7 +10,7 @@ from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OrdinalEncoder, StandardScaler
 
-#from diamondpredict.utils.utils import saveobject
+from diamondpredict.utils.utils import saveobject
 
 @dataclass
 class DataTransformationConfig:
@@ -61,35 +60,51 @@ class DataTransformation:
         except Exception as e:
             logger.exception(e)
 
+
+    @logger.catch()
     def initiate_data_transformation(self, traindata_path, testdata_path):
         try:
             logger.info('reading train and test data')
             traindf=pd.read_csv(traindata_path)
             testdf=pd.read_csv(testdata_path)
 
-            logger.success(f'data reading sucessfull \n')
-            logger.success(f'Training data \n{traindf.head().to_string()}')
-            logger.success(f'Testing data \n{testdf.head().to_string()}')
+            logger.info(f'data reading sucessfull')
+            logger.info(f'Training data \n{traindf.head().to_string()}')
+            logger.info(f'Testing data \n{testdf.head().to_string()}')
 
             preprocessing_obj=self.get_data_transformation()
 
             targetcol ='price'
             drop_col=[targetcol, 'Unnamed: 0']
 
+            target_feature_train_df=traindf[targetcol]
+            target_feature_test_df=testdf[targetcol]
+
             input_feature_train_df=traindf.drop(drop_col, axis=1)
             input_feature_test_df=testdf.drop(drop_col, axis=1)
-            target_feature_train_df=traindf[targetcol]
+
+            logger.info(f'Removed non related Training Features \n{input_feature_train_df.head().to_string()}')
+            logger.info(f'Removed non related Testing Features \n{input_feature_test_df.head().to_string()}')
 
             input_feature_train_turned=preprocessing_obj.fit_transform(input_feature_train_df)
             input_feature_test_turned=preprocessing_obj.transform(input_feature_test_df)
 
-            logger.success(f'Training Features Transformed \n{input_feature_train_turned[0:5]}')
-            logger.success(f'Testing Features Transformed \n{input_feature_test_turned[0:5]}')
+            logger.info(f'Training Features Transformed \n{input_feature_train_turned[0:5]}')
+            logger.info(f'Testing Features Transformed \n{input_feature_test_turned[0:5]}')
 
-#            saveobject(
-#                filepath=DataTransformationConfig.preprocessor_path,
-#                obj=preprocessing_obj
-#            )
+            saveobject(
+                filepath=DataTransformationConfig.preprocessor_path,
+                obj=preprocessing_obj
+            )
+
+            logger.info('Preprocess pickle saved')
+
+            logger.success('data transformation complete')
+
+            return(
+                np.c_[input_feature_train_turned, np.array(target_feature_train_df)],
+                np.c_[input_feature_test_turned, np.array(target_feature_test_df)]
+            )
 
         except Exception as e:
             logger.exception(e)
