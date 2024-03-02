@@ -1,5 +1,4 @@
 import pandas as pd
-import numpy as np
 from diamondpredict.loggers import logger
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
@@ -22,22 +21,22 @@ class DataIngestion:
 
         try:
             data=pd.read_csv(os.path.join(os.path.dirname(find_dotenv()), 'notebooks', 'data','diamonds.csv'))
-            logger.success('data reading succesfull, stored in >> data')
+            logger.info('data reading succesfull, stored in >> data')
             os.makedirs(os.path.dirname(self.ingestion_paths.rawdata_path), exist_ok=True)
 
             data.to_csv(self.ingestion_paths.rawdata_path, index=False)
-            logger.success('rawdata saved in artifacts folder')
+            logger.info('rawdata saved in artifacts folder')
 
             logger.info('spliting data in train and test')
             traindata, testdata= train_test_split(data, test_size=0.2)
-            logger.success('splitting succesfull')
+            logger.info('splitting succesfull')
             os.makedirs(os.path.dirname(self.ingestion_paths.traindata_path), exist_ok =True)
 
             traindata.to_csv(self.ingestion_paths.traindata_path, index=False)
             os.makedirs(os.path.dirname(self.ingestion_paths.testdata_path), exist_ok=True)
 
             testdata.to_csv(self.ingestion_paths.testdata_path, index=False)
-            logger.success('train and test data successfuly saved in artifacts folder')
+            logger.info('train and test data successfuly saved in artifacts folder')
 
             logger.success("successfull data ingestion")
 
