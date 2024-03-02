@@ -1,14 +1,21 @@
 from diamondpredict.components import data_ingestion
 from diamondpredict.components import data_transformation
+from diamondpredict.components import model_trainer
+
 
 from diamondpredict.loggers import logger
 import os
 import pandas as pd
 
-obj = data_ingestion.DataIngestion()
+ingest = data_ingestion.DataIngestion()
 
-trainpath, testpath=obj.initiate_data_ingestion()
+trainpath, testpath=ingest.initiate_data_ingestion()
 
-newobj = data_transformation.DataTransformation()
+transform = data_transformation.DataTransformation()
 
-newobj.initiate_data_transformation(trainpath, testpath)
+train_arr, test_arr=transform.initiate_data_transformation(trainpath, testpath)
+
+train=model_trainer.ModelTrainer()
+
+train.initiate_model_training(train_arr, test_arr)
+
