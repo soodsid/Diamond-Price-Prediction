@@ -35,3 +35,12 @@ def evaluate_model(xtrain,ytrain,xtest,ytest, models):
 
     except Exception as e:
         logger.exception(e)
+
+@logger.catch()
+def loadobject(filepath, obj):
+    try:
+        with open (filepath,'rb') as fileobj:
+            pickle.load(fileobj)
+
+    except Exception as e:
+        logger.exception(e)
