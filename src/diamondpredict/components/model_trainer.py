@@ -51,7 +51,7 @@ class ModelTrainer:
 
             saveobject(
                 filepath=ModelTrainerConfig.trainedmodel_filepath,
-                obj=best_model
+                obj=models[best_model_name]
             )
 
             logger.info('model saved into a pickle file')
