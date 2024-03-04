@@ -57,7 +57,7 @@ jobs:
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         ECR_REPOSITORY: github-sample
-        IMAGE_TAG: late
+        IMAGE_TAG: latest
 
       run: |
         # Build a docker container and
