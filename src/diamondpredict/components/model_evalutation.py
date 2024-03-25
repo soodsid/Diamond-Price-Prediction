@@ -11,25 +11,33 @@ class Model_Evaluation():
     def __init__(self) -> None:
         pass
 
+    logger.catch()
     def evaluation_metrics(self, ytest, ypred):
-        mse=mean_squared_error(ytest, ypred)
-        rmse=np.sqrt(mse)
-        mae=mean_absolute_error(ytest, ypred)
-        r2=r2_score(ytest, ypred)
-        return rmse, mse, mae, r2
-    
+        try:
+            mse=mean_squared_error(ytest, ypred)
+            rmse=np.sqrt(mse)
+            mae=mean_absolute_error(ytest, ypred)
+            r2=r2_score(ytest, ypred)
+            return rmse, mse, mae, r2
+        except Exception as e:
+            logger.exception(e)
+
+    logger.catch()
     def initiate_model_eval(self, train_arr, test_arr):
         xtest=test_arr[:,:-1]
         ytest=test_arr[:,-1]
+        logger.info('seperated the testing features for evaluation')
 
         model_path=str(os.path.join(os.path.dirname(find_dotenv()),'Artifacts','model.pkl'))
 
         model=loadobject(model_path)
+        logger.info('best model loaded')
 
         with mlflow.start_run():
             ypred=model.predict(xtest)
             rmse,mse,mae,r2=self.evaluation_metrics(ytest, ypred)
 
             mlflow.log_metrics({'rmse':rmse,'mse':mse,'mae':mae,'r2':r2})
+        logger.info('experiment recorded, best model saved in mlflow')
 
 
