@@ -47,7 +47,7 @@ class ModelTrainer:
             print(f'Best Model Found : {best_model_name} , R2 score : {best_model_score}')
             print ('='*80)
 
-            logger.success(f'Best Model FOund : {best_model_name} , R2 score : {best_model_score}')
+            logger.success(f'Best Model Found : {best_model_name} , R2 score : {best_model_score}')
 
             saveobject(
                 filepath=ModelTrainerConfig.trainedmodel_filepath,
