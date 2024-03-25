@@ -8,4 +8,6 @@ ipykernel
 loguru
 python-dotenv
 flask
+mlflow
+dvc
 -e .
