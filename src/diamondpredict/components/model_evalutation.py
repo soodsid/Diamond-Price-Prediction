@@ -6,6 +6,7 @@ import os
 from dotenv import find_dotenv
 from diamondpredict.utils.utils import loadobject
 import mlflow
+from urllib.parse import urlparse
 
 class Model_Evaluation():
     def __init__(self) -> None:
@@ -33,11 +34,20 @@ class Model_Evaluation():
         model=loadobject(model_path)
         logger.info('best model loaded')
 
+        mlflow.set_registry_uri('https://dagshub.com/soodsid/Diamond-Price-Prediction.mlflow')
+
+        tracking_url_scheme=urlparse(mlflow.get_tracking_uri()).scheme
+
         with mlflow.start_run():
             ypred=model.predict(xtest)
             rmse,mse,mae,r2=self.evaluation_metrics(ytest, ypred)
 
             mlflow.log_metrics({'rmse':rmse,'mse':mse,'mae':mae,'r2':r2})
-        logger.info('experiment recorded, best model saved in mlflow')
+            logger.info('experiment recorded, best model saved in mlflow')
+
+            if tracking_url_scheme!='file':
+                mlflow.sklearn.log_model(model, "model", registered_model_name='ml_model')
+            else:
+                mlflow.sklearn.log_model(model, "model")
 
 
