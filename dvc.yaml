@@ -9,8 +9,8 @@ stages:
       - src/diamondpredict/components/model_evaluation.py
 
     outs:
-      - artifacts/rawdata.csv
-      - artifacts/testdata.csv
-      - artifacts/traindata.csv
-      - artifacts/preprocessor.pkl
-      - artifacts/model.pkl
+      - Artifacts/rawdata.csv
+      - Artifacts/testdata.csv
+      - Artifacts/traindata.csv
+      - Artifacts/preprocessor.pkl
+      - Artifacts/model.pkl
