@@ -7,7 +7,6 @@ stages:
       - src/diamondpredict/components/data_transformation.py
       - src/diamondpredict/components/model_trainer.py
       - src/diamondpredict/components/model_evaluation.py
-
     outs:
       - Artifacts/rawdata.csv
       - Artifacts/testdata.csv
