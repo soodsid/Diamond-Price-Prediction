@@ -1,12 +1,12 @@
 stages:
   training:
-    cmd: python src/DimondPricePrediction/pipelines/training_pipeline.py
+    cmd: python src/diamondpredict/pipelines/training_pipeline.py
     deps:
-      - src/DimondPricePrediction/pipelines/training_pipeline.py
-      - src/DimondPricePrediction/components/data_ingestion.py
-      - src/DimondPricePrediction/components/data_transformation.py
-      - src/DimondPricePrediction/components/model_trainer.py
-      - src/DimondPricePrediction/components/model_evaluation.py
+      - src/diamondpredict/pipelines/training_pipeline.py
+      - src/diamondpredict/components/data_ingestion.py
+      - src/diamondpredict/components/data_transformation.py
+      - src/diamondpredict/components/model_trainer.py
+      - src/diamondpredict/components/model_evaluation.py
 
     outs:
       - artifacts/raw.csv

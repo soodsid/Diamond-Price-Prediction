@@ -1,7 +1,7 @@
 from diamondpredict.components import data_ingestion
 from diamondpredict.components import data_transformation
 from diamondpredict.components import model_trainer
-from diamondpredict.components import model_evalutation
+from diamondpredict.components import model_evaluation
 
 
 from diamondpredict.loggers import logger
@@ -17,6 +17,6 @@ train_arr, test_arr=transform.initiate_data_transformation(trainpath, testpath)
 train=model_trainer.ModelTrainer()
 train.initiate_model_training(train_arr, test_arr)
 
-eval=model_evalutation.Model_Evaluation()
+eval=model_evaluation.Model_Evaluation()
 eval.initiate_model_eval(train_arr, test_arr)
 
