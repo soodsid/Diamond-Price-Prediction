@@ -38,6 +38,7 @@ class Model_Evaluation():
             mlflow.set_registry_uri('https://dagshub.com/soodsid/Diamond-Price-Prediction.mlflow')
 
             tracking_url_scheme=urlparse(mlflow.get_tracking_uri()).scheme
+            logger.info(tracking_url_scheme)
 
             with mlflow.start_run():
                 ypred=model.predict(xtest)
@@ -50,6 +51,12 @@ class Model_Evaluation():
                     mlflow.sklearn.log_model(model, "model", registered_model_name='ml_model')
                 else:
                     mlflow.sklearn.log_model(model, "model")
+                
+                mlflow.log_artifact(str(os.path.join(os.path.dirname(find_dotenv()),'Artifacts','preprocessor.pkl')))
+                mlflow.log_artifact(str(os.path.join(os.path.dirname(find_dotenv()),'Artifacts','rawdata.csv')))
+                mlflow.log_artifact(str(os.path.join(os.path.dirname(find_dotenv()),'Artifacts','testdata.csv')))
+                mlflow.log_artifact(str(os.path.join(os.path.dirname(find_dotenv()),'Artifacts','traindata.csv')))
+                
         except Exception as e:
             logger.exception(e)
 
