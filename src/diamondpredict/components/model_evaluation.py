@@ -38,7 +38,7 @@ class Model_Evaluation():
             mlflow.set_registry_uri('https://dagshub.com/soodsid/Diamond-Price-Prediction.mlflow')
 
             tracking_url_scheme=urlparse(mlflow.get_tracking_uri()).scheme
-            logger.info(tracking_url_scheme)
+            logger.info(f'scheme of the url{tracking_url_scheme}')
 
             with mlflow.start_run():
                 ypred=model.predict(xtest)
