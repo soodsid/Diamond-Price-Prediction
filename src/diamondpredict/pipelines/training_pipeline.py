@@ -5,7 +5,6 @@ from diamondpredict.components import model_evaluation
 
 
 from diamondpredict.loggers import logger
-import os
 import pandas as pd
 
 ingest = data_ingestion.DataIngestion()

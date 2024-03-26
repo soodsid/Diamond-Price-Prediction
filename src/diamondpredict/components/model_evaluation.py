@@ -25,29 +25,32 @@ class Model_Evaluation():
 
     logger.catch()
     def initiate_model_eval(self, train_arr, test_arr):
-        xtest=test_arr[:,:-1]
-        ytest=test_arr[:,-1]
-        logger.info('seperated the testing features for evaluation')
+        try:
+            xtest=test_arr[:,:-1]
+            ytest=test_arr[:,-1]
+            logger.info('seperated the testing features for evaluation')
 
-        model_path=str(os.path.join(os.path.dirname(find_dotenv()),'Artifacts','model.pkl'))
+            model_path=str(os.path.join(os.path.dirname(find_dotenv()),'Artifacts','model.pkl'))
 
-        model=loadobject(model_path)
-        logger.info('best model loaded')
+            model=loadobject(model_path)
+            logger.info('best model loaded')
 
-        mlflow.set_registry_uri('https://dagshub.com/soodsid/Diamond-Price-Prediction.mlflow')
+            mlflow.set_registry_uri('https://dagshub.com/soodsid/Diamond-Price-Prediction.mlflow')
 
-        tracking_url_scheme=urlparse(mlflow.get_tracking_uri()).scheme
+            tracking_url_scheme=urlparse(mlflow.get_tracking_uri()).scheme
 
-        with mlflow.start_run():
-            ypred=model.predict(xtest)
-            rmse,mse,mae,r2=self.evaluation_metrics(ytest, ypred)
+            with mlflow.start_run():
+                ypred=model.predict(xtest)
+                rmse,mse,mae,r2=self.evaluation_metrics(ytest, ypred)
 
-            mlflow.log_metrics({'rmse':rmse,'mse':mse,'mae':mae,'r2':r2})
-            logger.info('experiment recorded, best model saved in mlflow')
+                mlflow.log_metrics({'rmse':rmse,'mse':mse,'mae':mae,'r2':r2})
+                logger.info('experiment recorded, best model saved in mlflow')
 
-            if tracking_url_scheme!='file':
-                mlflow.sklearn.log_model(model, "model", registered_model_name='ml_model')
-            else:
-                mlflow.sklearn.log_model(model, "model")
+                if tracking_url_scheme!='file':
+                    mlflow.sklearn.log_model(model, "model", registered_model_name='ml_model')
+                else:
+                    mlflow.sklearn.log_model(model, "model")
+        except Exception as e:
+            logger.exception(e)
 
 
