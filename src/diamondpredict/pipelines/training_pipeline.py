@@ -15,14 +15,9 @@ for i in range(100):
     transform = data_transformation.DataTransformation()
     train_arr, test_arr=transform.initiate_data_transformation(trainpath, testpath)
 
-<<<<<<< HEAD
     train=model_trainer.ModelTrainer()
     train.initiate_model_training(train_arr, test_arr)
-
-    eval=model_evalutation.Model_Evaluation()
+    
+    eval=model_evaluation.Model_Evaluation()
     eval.initiate_model_eval(train_arr, test_arr)
-=======
-eval=model_evaluation.Model_Evaluation()
-eval.initiate_model_eval(train_arr, test_arr)
->>>>>>> a96c5650fd5b0140f5c2ff29110b46cd30aee007
 
