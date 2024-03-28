@@ -1,0 +1,25 @@
+schema: '2.0'
+stages:
+  training:
+    cmd: python src/diamondpredict/pipelines/training_pipeline.py
+    deps:
+    - path: src/diamondpredict/components/data_ingestion.py
+      hash: md5
+      md5: 2a248a19ece77d1aefadd79f94903af2
+      size: 2013
+    - path: src/diamondpredict/components/data_transformation.py
+      hash: md5
+      md5: 68da9989628c53817bae18c0e5a44845
+      size: 4041
+    - path: src/diamondpredict/components/model_evaluation.py
+      hash: md5
+      md5: d85e4d9734f3175befdb972f0f590361
+      size: 2537
+    - path: src/diamondpredict/components/model_trainer.py
+      hash: md5
+      md5: 1bde44f701974029857ada93435db89a
+      size: 2095
+    - path: src/diamondpredict/pipelines/training_pipeline.py
+      hash: md5
+      md5: ce358f09f24a5192ae1ad69692e39dd3
+      size: 707
